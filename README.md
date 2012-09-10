@@ -5,7 +5,15 @@ Metadata Inspection Database Alerting System
 
 _____________________
 
-Requires:
+This is a project to create a system to automate the inspection and databasing of all Meta data information
+contained within all files destined for an organization (generally via dumping the files which are attached
+to emails through the use of YARA, but could also be automated via netwitness, other full pcap tool, or just
+to iterate through file servers looking for suspicious files). <br>
+
+Alternatively, this can be used to look for heuristic anomalies in existing collections of files both malicious
+and benign. <br><br>
+
+MIDAS Requires: <br>
 Yara 1.6 
 Yara Python 1.6
 MongoDB 2.0+
@@ -14,28 +22,22 @@ Python 2.7
 Exiftool 9.0+
 PyExiftool 
 
-Only DB Connection must be configured Manually in the midas.py file. 
-----------------------
-This is a project to create a system to automate the inspection and databasing of all Meta data information
-contained within all files destined for an organization (generally via dumping the files which are attached
-to emails through the use of YARA, but could also be automated via netwitness, other full pcap tool, or just
-to iterate through file servers looking for suspicious files).
-Alternatively, this can be used to look for heuristic anomalies in existing collections of files both malicious
-and benign. 
-//
- 
+<br><br>
 This program uses PyExifData for extraction, and PyMongo to interface with a local Mongodb instance which will
-store the extracted data for later queries and tracking. Alerting takes place via customized yara instance.
-//
+store the extracted data for later queries and tracking. Alerting takes place via yara instance.
+<br><br>
 
 Interaction between PyExifData and PyMongo will take place in JSON and the MD5 hash of each file is computed in python then used as the OID in Mongo to prevent duplicate entries into the DB.
-//
-
-//
+<br><br>
 All options except for the target DB can be configured via commandline. ( path to scan, -s (sleeptime between iterations), -d (delete after Scan), -m TARG (move after scan), -l TARG (Log file), -y TARG (Yara rule file) 
+<br><br> 
+DB is configured to connect to localhost & default port, db = test, collection = metadata. This can be changed in midas.py
 
+<br><br>
 Version .05a
-//
+<br><br>
+Installation: Install all of the prereqs listed above. Place midas.py and midasyararules.yar in a directory which is NOT the path to be scanned. <br> PROFIT!
+<br><br>
 
 - USAGE midas.py [options] /path/to/files 
 - Currently the program works to extract exif data from all files in a given directory. 
