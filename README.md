@@ -18,5 +18,15 @@ Interaction between PyExifData and PyMongo will take place in JSON and the MD5 h
 Identification.
 //
 
+Version .01 
+//
+//
+
+- USAGE midas.py /path/to/files // *NOTE DO NOT RUN SCRIPT FROM THIS DIR IF YOU ENABLE DELETING*//
+- Currently the program works to extract exif data from all files in a given directory. //
+- It will compute an MD5hash and time stamp for each file and add that to the JSON //
+- It will then add the metadata in json format to a mongo DB collection of your chosing // 
+- It will then delete the file after successfull submission to the database of it's metadata **note this is disabled by default* // 
+- It will then pause 15 seconds and repeat this process with no further interaction, printing to standard out after each file has been processed//
 
 Please contact me at chris@xenosys.net with any questions. 
