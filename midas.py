@@ -10,6 +10,7 @@ import pymongo
 import hashlib
 import datetime
 import time
+import yara
 
 from pymongo import Connection
 connection = Connection('localhost', 27017)
@@ -17,6 +18,7 @@ db = connection.test
 metadatacollection = db.metadata
 sleeptime = 15
 now = datetime.datetime.now()
+rules = yara.compile('./midasyararules.yar')
 
 if len(sys.argv)<2:
     pathtofiles = os.getcwd()
@@ -43,7 +45,14 @@ def main():
 				metadata[u'md5'] = md5sum(filename)
        				metadata[u'DateTimeRecieved'] = now.strftime("%Y:%m:%d %H:%M:%S")
 				metadatacollection.insert(metadata)
+				metadatastring = str(metadata)
+				matches = rules.match(data=metadatastring)
 				print "Metadata for " + filename + " added to database OK!"
+				if matches:
+					print "Yara Matches: "
+					print  matches 
+				else:
+					print "No Yara Matches "
 			#       os.remove(filename)
 		time.sleep(sleeptime)
 if __name__ == "__main__":
