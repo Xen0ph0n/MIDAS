@@ -29,9 +29,6 @@ db = connection.test
 # default collection is metadata
 metadatacollection = db.metadata
 
-# Define Now to use in Timestamp
-now = datetime.datetime.now()
-
 # Argument Parser and Usage Help
 parser = argparse.ArgumentParser(description='Metadata Inspection Database Alerting System')
 parser.add_argument('Path', help='Path to directory of files to be scanned (Required)')
@@ -92,7 +89,8 @@ def main():
 				md5 = md5sum(filename)
 				metadata[u'_id'] = md5
 				# create a timestamp which will reflect the time the file is submitted to the database
-       				timestamp = now.strftime("%Y:%m:%d %H:%M:%S")
+       				now = datetime.datetime.now()
+				timestamp = now.strftime("%Y:%m:%d %H:%M:%S")
 				metadata[u'File:DateTimeRecieved'] = timestamp
 				# remove unwanted keys which were present in exiftool JSON
 				del metadata[u'SourceFile']
