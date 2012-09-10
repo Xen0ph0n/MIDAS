@@ -43,7 +43,11 @@ def main():
 		    			metadata = et.get_metadata(filename)
 
 				metadata[u'_id'] = md5sum(filename)
-       				metadata[u'DateTimeRecieved'] = now.strftime("%Y:%m:%d %H:%M:%S")
+       				metadata[u'File:DateTimeRecieved'] = now.strftime("%Y:%m:%d %H:%M:%S")
+				del metadata[u'SourceFile']
+				del metadata[u'File:FilePermissions']
+				del metadata[u'File:Directory']
+				del metadata[u'ExifTool:ExifToolVersion']
 				metadatacollection.insert(metadata)
 				matches = rules.match(data=str(metadata))
 				print "Metadata for " + filename + " added to database OK!"
