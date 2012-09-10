@@ -1,0 +1,9 @@
+INFO:root:Starting Midas with the following args: {'yararules': './midasyararules.yar', 'logs': './midas.log', 'move': None, 'sleep': 15, 'Path': '../testmidas/', 'delete': True}
+INFO:root:2012:09:10 16:45:49: Metadata for july.swf MD5: ac97a9244a331ffd1f695d1a99485e5d added to database
+INFO:root:2012:09:10 16:45:49:../testmidas/july.swf has been deleted.
+INFO:root:2012:09:10 16:45:49: Metadata for 2.pdf MD5: 101c15e96c05c6ef289962f49f6dae87 added to database
+WARNING:root:2012:09:10 16:45:49: Yara Matches for 2.pdf: [MetaData_PDF_Test] MD5: 101c15e96c05c6ef289962f49f6dae87
+INFO:root:2012:09:10 16:45:49:../testmidas/2.pdf has been deleted.
+INFO:root:2012:09:10 16:45:49: Metadata for 1.pdf MD5: 32d29ee5d36373a775c8f0776b2395bc added to database
+WARNING:root:2012:09:10 16:45:49: Yara Matches for 1.pdf: [MetaData_PDF_Test, MetaData_Author_OracleReports_Test] MD5: 32d29ee5d36373a775c8f0776b2395bc
+INFO:root:2012:09:10 16:45:49:../testmidas/1.pdf has been deleted.
