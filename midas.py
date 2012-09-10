@@ -45,8 +45,8 @@ def main():
 				metadata[u'md5'] = md5sum(filename)
        				metadata[u'DateTimeRecieved'] = now.strftime("%Y:%m:%d %H:%M:%S")
 				metadatacollection.insert(metadata)
-				metadatastring = str(metadata)
-				matches = rules.match(data=metadatastring)
+			#	metadatastring = str(metadata)
+				matches = rules.match(data=str(metadata))
 				print "Metadata for " + filename + " added to database OK!"
 				if matches:
 					print "Yara Matches: "
