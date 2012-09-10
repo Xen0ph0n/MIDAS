@@ -9,14 +9,13 @@ import sys
 import pymongo 
 import hashlib
 import datetime
-import threading
 import time
 
 from pymongo import Connection
 connection = Connection('localhost', 27017)
 db = connection.test
 metadatacollection = db.metadata
-
+sleeptime = 15
 now = datetime.datetime.now()
 
 if len(sys.argv)<2:
@@ -34,18 +33,18 @@ def md5sum(filename):
 	return md5.hexdigest()
 
 def main():
-	for root, dirs, files in os.walk(pathtofiles):
-    		for name in files: 
-       			filename = os.path.join(root, name)
-			with exiftool.ExifTool() as et:
-		    		metadata = et.get_metadata(filename)
+	while True:
+		for root, dirs, files in os.walk(pathtofiles):
+    			for name in files: 
+       				filename = os.path.join(root, name)
+				with exiftool.ExifTool() as et:
+		    			metadata = et.get_metadata(filename)
 
-		metadata[u'md5'] = md5sum(filename)
-       		metadata[u'DateTimeRecieved'] = now.strftime("%Y:%m:%d %H:%M:%S")
-	#   	print metadata.keys()
-       		print  metadata
-	#	metadatacollection.insert(metadata)
-	#       os.remove(filename)
-
+				metadata[u'md5'] = md5sum(filename)
+       				metadata[u'DateTimeRecieved'] = now.strftime("%Y:%m:%d %H:%M:%S")
+				metadatacollection.insert(metadata)
+				print "Metadata for " + filename + " added to database OK!"
+			#       os.remove(filename)
+		time.sleep(sleeptime)
 if __name__ == "__main__":
 	main()  
