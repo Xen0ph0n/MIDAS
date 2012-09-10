@@ -18,6 +18,7 @@ import datetime
 import time
 import yara
 import argparse
+import logging
 
 # Database Connection Information
 from pymongo import Connection
@@ -36,14 +37,15 @@ parser = argparse.ArgumentParser(description='Metadata Inspection Database Alert
 parser.add_argument('Path', help='Path to directory of files to be scanned (Required)')
 parser.add_argument('-d','--delete', action='store_true', help='Deletes files after extracting metadata (Default: False)', required=False)
 parser.add_argument('-y','--yararules', default='./midasyararules.yar', help='Specify Yara Rules File (Default: ./midasyararules.yar)', required=False)
+parser.add_argument('-l','--logs', default='./midas.log', help='Midas logs Yara hits, DB Commits, and File Moves (Default: ./midas.log)', required=False)
 parser.add_argument('-m','--move', help='Where to move files to once scanned (Default: Files are Not Moved)', required=False)
 parser.add_argument('-s','--sleep', type=int, default=15, help='Time in Seconds for Midas.py to sleep between scans (Default: 15 sec)', required=False)
 args = vars(parser.parse_args())
 
-# Set Path to files from Argument
-
-pathtofiles = args['Path']
-print "Path to be scanned: " +  pathtofiles 
+# Logging Configuration 
+logsfile = args['logs']
+logging.basicConfig(filename=logsfile, level=logging.INFO)
+logging.info('Starting Midas with the following args: ' + str(args))
 
 # Time to sleep before iterating over target dir again
 sleeptime = args['sleep']
@@ -51,6 +53,21 @@ sleeptime = args['sleep']
 # Location of Yara Rules File
 rules = yara.compile(args['yararules'])
 
+
+# Set Path to files from Argument
+pathtofiles = args['Path']
+
+# Return Warm and Fuzzy to CLI while magic happens in the background
+print "\n\n Scanning all files recursivly from here: " + pathtofiles 
+print " Logging all information to: " + logsfile
+print " Using Yara Rule file: " + str(args['yararules'])  + "\n Sleeping for: " + str(sleeptime) + " seconds between iterations"
+if args['move']:
+	print " All files will be moved to: " + args['move'] + "once scanned"
+else:
+	print " Files will not be moved after scanning."
+print " Delete after scanning is set to: " + str(args['delete'])
+print "\n This program will not terminate until you stop it. Enjoy! \n Created By: Christopher Clark 9/10/12 Chris@xenosys.net"
+ 
 # Md5 Function
 def md5sum(filename):
 	md5 = hashlib.md5()
@@ -72,9 +89,11 @@ def main():
 				with exiftool.ExifTool() as et:
 		    			metadata = et.get_metadata(filename)
 				# call the md5sum function to get a hash, then use this as the OID to prevent duplicates in the database
-				metadata[u'_id'] = md5sum(filename)
+				md5 = md5sum(filename)
+				metadata[u'_id'] = md5
 				# create a timestamp which will reflect the time the file is submitted to the database
-       				metadata[u'File:DateTimeRecieved'] = now.strftime("%Y:%m:%d %H:%M:%S")
+       				timestamp = now.strftime("%Y:%m:%d %H:%M:%S")
+				metadata[u'File:DateTimeRecieved'] = timestamp
 				# remove unwanted keys which were present in exiftool JSON
 				del metadata[u'SourceFile']
 				del metadata[u'File:FilePermissions']
@@ -85,13 +104,12 @@ def main():
 				# convert the JSON dictionary to a string and run it through Yara
 				matches = rules.match(data=str(metadata))
 				# confirm successful datbase submission (duplicate Md5s will be ignored by mongo, no msg here)
-				print "Metadata for " + filename + " added to database OK!"
+				logging.info(timestamp + ": Metadata for " + name + " MD5: " +md5 + " added to database")
 				# Print yara hits, or none..**this will eventually export to logger**
 				if matches:
-					print "Yara Matches: "
-					print  matches 
+					logging.warning(timestamp + ": Yara Matches for " + name + ": " + str(matches) + " MD5: " + md5)
 				else:
-					print "No Yara Matches "
+					logging.debug(timestamp + ": No Yara Matches for " + name + " MD5: " + md5)
 				# if -m switch is on, this will move each file to destination dir and remove them from scanning path
 				if args['move']:
 					#Make destination dir per agument if non existant
@@ -99,16 +117,16 @@ def main():
 						os.makedirs(args['move'])
 					shutil.move(filename, args['move'] + name)
 					#Verify move for logs:
-					print filename + " has been moved to " + args['move'] + name
+					logging.info(timestamp + ":" + filename + " has been moved to " + args['move'] + name)
 					 
 				# if -d switch is on, this will delete each file after scanning. !!BE CAREFUL WITH THIS!!
 				if args['delete'] == True:
 					os.remove(filename)
 					# Confirm delete for logs.
-					print filename + " has been deleted."
+					logging.info(timestamp + ":" + filename + " has been deleted.")
 		#variable from 'sleep' arg input here, default 15 seconds
+		logging.debug(timestamp + ": Sleeping for " + str(sleeptime))
 		time.sleep(sleeptime)
-
 #standard catch to run main
 if __name__ == "__main__":
 	main()  
