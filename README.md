@@ -48,3 +48,79 @@ Installation: Install all of the prereqs listed above. Place midas.py and midasy
 - It will then pause 15 seconds (configurable with -s) and repeat this process with no further interaction, logging all DB Submissions, and file moves/deletes 
 
 Please contact me at chris@xenosys.net with any questions. 
+
+USAGE Example: <br>
+usage: midas.py [-h] [-d] [-y YARARULES] [-l LOGS] [-m MOVE] [-s SLEEP] Path <br><br>
+
+Metadata Inspection Database Alerting System <br><br>
+
+positional arguments: <br>
+  Path                  Path to directory of files to be scanned (Required) <br><br>
+optional arguments:<br>
+  -h, --help            show this help message and exit <br>
+  -d, --delete          Deletes files after extracting metadata (Default: False) <br>
+  -y YARARULES, --yararules YARARULES <br>
+                        Specify Yara Rules File (Default: ./midasyararules.yar)<br>
+  -l LOGS, --logs LOGS  Midas logs Yara hits, DB Commits, and File Moves (Default: ./midas.log)<br>
+  -m MOVE, --move MOVE  Where to move files to once scanned (Default: Files are Not Moved) <br>
+  -s SLEEP, --sleep SLEEP Time in Seconds for Midas.py to sleep between scans (Default: 15 sec)<br>
+
+<br>
+<br>
+LOGS Example:
+INFO:root:Starting Midas with the following args: {'yararules': './midasyararules.yar', 'logs': './midas.log', 'move': None, 'sleep': 15, 'Path': '../testmidas/', 'delete': True} <br>
+INFO:root:2012:09:10 16:45:49: Metadata for july.swf MD5: ac97a9244a331ffd1f695d1a99485e5d added to database <br>
+INFO:root:2012:09:10 16:45:49:../testmidas/july.swf has been deleted. <br>
+INFO:root:2012:09:10 16:45:49: Metadata for 2.pdf MD5: 101c15e96c05c6ef289962f49f6dae87 added to database <br>
+WARNING:root:2012:09:10 16:45:49: Yara Matches for 2.pdf: [MetaData_PDF_Test] MD5: 101c15e96c05c6ef289962f49f6dae87 <br>
+INFO:root:2012:09:10 16:45:49:../testmidas/2.pdf has been deleted. <br>
+INFO:root:2012:09:10 16:45:49: Metadata for 1.pdf MD5: 32d29ee5d36373a775c8f0776b2395bc added to database <br>
+WARNING:root:2012:09:10 16:45:49: Yara Matches for 1.pdf: [MetaData_PDF_Test, MetaData_Author_OracleReports_Test] MD5: 32d29ee5d36373a775c8f0776b2395bc <br>
+INFO:root:2012:09:10 16:45:49:../testmidas/1.pdf has been deleted.<br>
+
+<br>
+<br>
+
+Info Inserted into database:
+<br><br>
+[_id] => 32d29ee5d36373a775c8f0776b2395bc<br>
+[File:FileType] => PDF<br>
+[File:FileSize] => 107474<br>
+[File:DateTimeRecieved] => 2012:09:10 15:24:08 <br>
+[PDF:PageCount] => 1<br>
+[PDF:Title] => ntlwr_folio_logo_mpg3153683.pdf<br>
+[PDF:Creator] => Oracle10gR2 AS Reports Services<br>
+[File:MIMEType] => application/pdf<br>
+[PDF:Author] => Oracle Reports<br>
+[PDF:PDFVersion] => 1.4<br>
+[PDF:Producer] => Oracle PDF driver<br>
+[File:FileModifyDate] => 2012:09:10 14:41:14-04:00<br>
+[PDF:ModifyDate] => 2012:07:10 07:39:29<br>
+[PDF:CreateDate] => 2012:07:10 07:39:29<br>
+[File:FileName] => 221.pdf<br>
+[PDF:Linearized] => <br><br>
+
+[_id] => ac97a9244a331ffd1f695d1a99485e5d<br>
+[File:MIMEType] => application/x-shockwave-flash<br>
+[File:DateTimeRecieved] => 2012:09:10 15:24:08<br>
+[Flash:FileAttributes] => 25<br>
+[XMP:Creator] => unknown<br>
+[File:FileModifyDate] => 2012:09:10 14:41:02-04:00<br>
+[XMP:Format] => application/x-shockwave-flash<br>
+[Flash:Compressed] => 1<br>
+[Flash:FlashVersion] => 14<br>
+[File:FileSize] => 156778<br>
+[XMP:Publisher] => unknown<br>
+[Flash:ImageWidth] => 500<br>
+[Flash:FrameCount] => 1<br>
+[File:FileType] => SWF<br>
+[File:FileName] => 22july.swf<br>
+[Flash:ImageHeight] => 375<br>
+[XMP:Date] => 2012:8:15<br>
+[XMP:Description] => http://www.adobe.com/products/flex<br>
+[XMP:Title] => Adobe Flex 4 Application<br>
+[Flash:Duration] => 0.041666666666667<br>
+[Composite:ImageSize] => 500x375<br>
+[Flash:FrameRate] => 24<br>
+[XMP:Language] => EN<br>
+<br>
