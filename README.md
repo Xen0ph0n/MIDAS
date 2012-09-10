@@ -67,7 +67,7 @@ optional arguments:<br>
 
 <br>
 <br>
-LOGS Example:
+LOGS Example:<br>
 INFO:root:Starting Midas with the following args: {'yararules': './midasyararules.yar', 'logs': './midas.log', 'move': None, 'sleep': 15, 'Path': '../testmidas/', 'delete': True} <br>
 INFO:root:2012:09:10 16:45:49: Metadata for july.swf MD5: ac97a9244a331ffd1f695d1a99485e5d added to database <br>
 INFO:root:2012:09:10 16:45:49:../testmidas/july.swf has been deleted. <br>
@@ -77,10 +77,8 @@ INFO:root:2012:09:10 16:45:49:../testmidas/2.pdf has been deleted. <br>
 INFO:root:2012:09:10 16:45:49: Metadata for 1.pdf MD5: 32d29ee5d36373a775c8f0776b2395bc added to database <br>
 WARNING:root:2012:09:10 16:45:49: Yara Matches for 1.pdf: [MetaData_PDF_Test, MetaData_Author_OracleReports_Test] MD5: 32d29ee5d36373a775c8f0776b2395bc <br>
 INFO:root:2012:09:10 16:45:49:../testmidas/1.pdf has been deleted.<br>
-
 <br>
 <br>
-
 Info Inserted into database:
 <br><br>
 [_id] => 32d29ee5d36373a775c8f0776b2395bc<br>
@@ -124,3 +122,17 @@ Info Inserted into database:
 [Flash:FrameRate] => 24<br>
 [XMP:Language] => EN<br>
 <br>
+
+What you see at the CLI Upon Execute:<br>
+~/MIDAS$ python midas.py -m ../2 -s 30 ../testmidas/<br>
+<br>
+<br>
+ Scanning all files recursivly from here: ../testmidas/<br>
+ Logging all information to: ./midas.log<br>
+ Using Yara Rule file: ./midasyararules.yar<br>
+ Sleeping for: 30 seconds between iterations<br>
+ All files will be moved to: ../2once scanned<br>
+ Delete after scanning is set to: False<br>
+<br>
+ This program will not terminate until you stop it. Enjoy!<br> 
+ Created By: Christopher Clark 9/10/12 Chris@xenosys.net<br><br>
