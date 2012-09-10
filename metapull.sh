@@ -1,4 +1,7 @@
 #!/bin/bash
+# Sloppy mess of a bash script with no alerting, but properly parses, adds 
+# MD5 info and timestamp and adds to database all metadata from files in 
+# directory then deletes the subject files.
 
 for file in ../*.*
 do
