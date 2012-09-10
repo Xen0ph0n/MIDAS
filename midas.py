@@ -42,7 +42,9 @@ def main():
 				with exiftool.ExifTool() as et:
 		    			metadata = et.get_metadata(filename)
 
-				metadata[u'md5'] = md5sum(filename)
+				md5 = md5sum(filename)
+				metadata[u'_id'] = md5
+				metadata[u'MD5'] = md5
        				metadata[u'DateTimeRecieved'] = now.strftime("%Y:%m:%d %H:%M:%S")
 				metadatacollection.insert(metadata)
 				matches = rules.match(data=str(metadata))
