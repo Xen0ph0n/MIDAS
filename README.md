@@ -5,6 +5,17 @@ Metadata Inspection Database Alerting System
 
 _____________________
 
+Requires:
+Yara 1.6 
+Yara Python 1.6
+MongoDB 2.0+
+PyMongo 2.2+
+Python 2.7
+Exiftool 9.0+
+PyExiftool 
+
+Only DB Connection must be configured Manually in the midas.py file. 
+----------------------
 This is a project to create a system to automate the inspection and databasing of all Meta data information
 contained within all files destined for an organization (generally via dumping the files which are attached
 to emails through the use of YARA, but could also be automated via netwitness, other full pcap tool, or just
