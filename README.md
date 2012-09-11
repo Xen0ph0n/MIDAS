@@ -34,7 +34,10 @@ All options except for the target DB can be configured via commandline. ( path t
 DB is configured to connect to localhost & default port, db = test, collection = metadata. This can be changed in midas.py
 
 <br><br>
-Version .05a
+Version .07a
+<br>
+Latest Changes:<br>
+Added ['YaraAlerts'] Key to Metadata JSON which will save the yara rule hits to the database entry for each file.
 <br><br>
 Installation: Install all of the prereqs listed above. <br> 
 Place midas.py and midasyararules.yar in a directory which is NOT the path to be scanned. <br>
@@ -46,7 +49,7 @@ PROFIT!
 - Currently the program works to extract exif data from all files in a given directory. 
 - It computes an MD5hash and time stamp for each file and add that to the JSON 
 - It then adds the metadata in json format to a mongo DB collection of your chosing 
-- Then it will use the information in (-y TARG default:"midasyararules.yar") to perform detection based on the metadata. Detections will be logged at a WARNING level for easy ident. 
+- Then it will use the information in (-y TARG default:"midasyararules.yar") to perform detection based on the metadata. Detections will be logged at a WARNING level for easy ident and also added to the JSON data with key 'YaraAlerts' 
 - It then has the ability to either (-d) delete or (-m) move files once scanned to a configurable destination.  
 - It will then pause 15 seconds (configurable with -s) and repeat this process with no further interaction, logging all DB Submissions, and file moves/deletes 
 
@@ -95,6 +98,7 @@ Info Inserted into database:
 [PDF:Author] => Oracle Reports<br>
 [PDF:PDFVersion] => 1.4<br>
 [PDF:Producer] => Oracle PDF driver<br>
+[YaraAlerts] => [MetaData_PDF_Test, MetaData_Author_OracleReports_Test]<br>
 [File:FileModifyDate] => 2012:09:10 14:41:14-04:00<br>
 [PDF:ModifyDate] => 2012:07:10 07:39:29<br>
 [PDF:CreateDate] => 2012:07:10 07:39:29<br>
@@ -118,6 +122,7 @@ Info Inserted into database:
 [File:FileName] => 22july.swf<br>
 [Flash:ImageHeight] => 375<br>
 [XMP:Date] => 2012:8:15<br>
+[YaraAlerts] => None<br>
 [XMP:Description] => http://www.adobe.com/products/flex<br>
 [XMP:Title] => Adobe Flex 4 Application<br>
 [Flash:Duration] => 0.041666666666667<br>

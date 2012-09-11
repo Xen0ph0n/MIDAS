@@ -97,17 +97,22 @@ def main():
 				del metadata[u'File:FilePermissions']
 				del metadata[u'File:Directory']
 				del metadata[u'ExifTool:ExifToolVersion']
-				# insert into mongo collection
-				metadatacollection.insert(metadata)
 				# convert the JSON dictionary to a string and run it through Yara
 				matches = rules.match(data=str(metadata))
 				# confirm successful datbase submission (duplicate Md5s will be ignored by mongo, no msg here)
 				logging.info(timestamp + ": Metadata for " + name + " MD5: " +md5 + " added to database")
 				# Print yara hits, or none..**this will eventually export to logger**
 				if matches:
+					metadata[u'YaraAlerts'] = str(matches)
 					logging.warning(timestamp + ": Yara Matches for " + name + ": " + str(matches) + " MD5: " + md5)
 				else:
+					metadata[u'YaraAlerts'] = "None"
 					logging.debug(timestamp + ": No Yara Matches for " + name + " MD5: " + md5)
+			
+				# insert into mongo collection
+				metadatacollection.insert(metadata)
+				# confirm successful datbase submission (duplicate Md5s will be ignored by mongo, no msg here)
+				logging.info(timestamp + ": Metadata for " + name + " MD5: " +md5 + " added to database")
 				# if -m switch is on, this will move each file to destination dir and remove them from scanning path
 				if args['move']:
 					#Make destination dir per agument if non existant
