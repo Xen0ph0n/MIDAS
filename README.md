@@ -25,15 +25,10 @@ SSDeep
 PySSdeep
 
 <br><br>
-This program uses PyExifData for extraction, and PyMongo to interface with a local Mongodb instance which will
-store the extracted data for later queries and tracking. Alerting takes place via yara instance.
+This program uses PyExifData for extraction of metadata, and PyMongo to interface with a local Mongodb instance which will
+store the extracted data for later queries and tracking. Files and extracted metadata are also scanned by Yara and alerts 
+are written out to logs, and along with MD5hashes and a SSDeep fuzzy hash are placed in the JSON which is sent to the Database.
 <br><br>
-
-Interaction between PyExifData and PyMongo will take place in JSON and the MD5 hash of each file is computed in python then used as the OID in Mongo to prevent duplicate entries into the DB.
-<br><br>
-All options except for the target DB can be configured via commandline. ( path to scan, -s (sleeptime between iterations), -d (delete after Scan), -m TARG (move after scan), -l TARG (Log file), -y TARG (Yara rule file) 
-<br><br> 
-DB is configured to connect to localhost & default port, db = test, collection = metadata. This can be changed in midas.py
 
 <br><br>
 Version .10a
