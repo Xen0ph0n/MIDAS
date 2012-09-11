@@ -59,11 +59,11 @@ print "\n\n Scanning all files recursivly from here: " + pathtofiles
 print " Logging all information to: " + logsfile
 print " Using Yara Rule file: " + str(args['yararules'])  + "\n Sleeping for: " + str(sleeptime) + " seconds between iterations"
 if args['move']:
-	print " All files will be moved to: " + args['move'] + "once scanned"
+	print " All files will be moved to: " + args['move'] + " once scanned"
 else:
 	print " Files will not be moved after scanning."
 print " Delete after scanning is set to: " + str(args['delete'])
-print "\n This program will not terminate until you stop it. Enjoy! \n Created By: Christopher Clark 9/10/12 Chris@xenosys.net"
+print "\n This program will not terminate until you stop it. Enjoy! \n Created By: Chris Clark: chris@xenosec.org or @xenosec"
  
 # Md5 Function
 def md5sum(filename):
@@ -123,7 +123,6 @@ def main():
 					# Confirm delete for logs.
 					logging.info(timestamp + ":" + filename + " has been deleted.")
 		#variable from 'sleep' arg input here, default 15 seconds
-		logging.debug(timestamp + ": Sleeping for " + str(sleeptime))
 		time.sleep(sleeptime)
 #standard catch to run main
 if __name__ == "__main__":
