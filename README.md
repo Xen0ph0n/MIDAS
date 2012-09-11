@@ -36,6 +36,10 @@ All options except for the target DB can be configured via commandline. ( path t
 DB is configured to connect to localhost & default port, db = test, collection = metadata. This can be changed in midas.py
 
 <br><br>
+Version .10a
+<br>
+Latest Changes:<br>
+Added full file yara scanning, this can be resource intensive if you have a lot of rules. (-f or -fullyara). It will alert to logs at warning level and push all alerts for a file into the DB in the JSON<br>
 Version .09a
 <br>
 Latest Changes:<br>
@@ -73,8 +77,8 @@ optional arguments:<br>
   -h, --help            show this help message and exit <br>
   -d, --delete          Deletes files after extracting metadata (Default: False) <br>
   -S  --SSDeep         Perform ssdeep fuzzy hashing of files and store in DB (Default: False)<br>
-  -y YARARULES, --yararules YARARULES <br>
-                        Specify Yara Rules File (Default: ./midasyararules.yar)<br>
+  -y YARARULES, --yararules YARARULES  Specify Yara Rules File (Default: ./midasyararules.yar)<br>
+  -f, --fullyara        Scan the entriety of each file with Yara (Default: Only Metadata is scanned)<br>
   -l LOGS, --logs LOGS  Midas logs Yara hits, DB Commits, and File Moves (Default: ./midas.log)<br>
   -m MOVE, --move MOVE  Where to move files to once scanned (Default: Files are Not Moved) <br>
   -s SLEEP, --sleep SLEEP Time in Seconds for Midas.py to sleep between scans (Default: 15 sec)<br>
@@ -151,6 +155,7 @@ What you see at the CLI Upon Execute:<br>
  Sleeping for: 30 seconds between iterations<br>
  All files will be moved to: ../2 once scanned<br>
  SSDeep fuzzy hashing is set to: True<br>
+ Full file Yara scanning is set to: True<br>
  Delete after scanning is set to: False<br>
 <br>
  This program will not terminate until you stop it. Enjoy!<br> 
