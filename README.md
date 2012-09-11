@@ -47,7 +47,7 @@ Installation: Install all of the prereqs listed above. Place midas.py and midasy
 - It then has the ability to either (-d) delete or (-m) move files once scanned to a configurable destination.  
 - It will then pause 15 seconds (configurable with -s) and repeat this process with no further interaction, logging all DB Submissions, and file moves/deletes 
 
-Please contact me at chris@xenosys.net with any questions. 
+Please contact me at chris@xenosec.org with any questions. 
 
 USAGE Example: <br>
 usage: midas.py [-h] [-d] [-y YARARULES] [-l LOGS] [-m MOVE] [-s SLEEP] Path <br><br>
@@ -135,4 +135,4 @@ What you see at the CLI Upon Execute:<br>
  Delete after scanning is set to: False<br>
 <br>
  This program will not terminate until you stop it. Enjoy!<br> 
- Created By: Christopher Clark 9/10/12 Chris@xenosys.net<br><br>
+ Created By: Christopher Clark 9/10/12 Chris@xenosec.org<br><br>
