@@ -1,10 +1,10 @@
-# midas.py 
-# By Chris Clark 9/10/2012
+# midas.py v.09 
+# By Chris Clark 9/11/2012
 # This is a early version of a program to automatically export to DB and scan
 # the metadata from all incoming files. Also compute and tag each with MD5 hash
 # for tracking and association.
 #
-# This requires: Python 2.7, Mongo DB, Pymongo, Yara 1.6, Yara Python 1.6, Exiftool, PyExiftool. 
+# This requires: Python 2.7, Mongo DB, Pymongo, Yara 1.6, Yara Python 1.6, Exiftool, PyExiftool, ssdeep, and pyssdeep. 
 # Install Mongo DB and use the default test DB, create a collection called "metadata" and you are good!
 # Or change the settings below to reflect your database. 
 
@@ -19,6 +19,7 @@ import time
 import yara
 import argparse
 import logging
+from ssdeep import ssdeep
 
 # Database Connection Information
 from pymongo import Connection
@@ -33,6 +34,7 @@ metadatacollection = db.metadata
 parser = argparse.ArgumentParser(description='Metadata Inspection Database Alerting System')
 parser.add_argument('Path', help='Path to directory of files to be scanned (Required)')
 parser.add_argument('-d','--delete', action='store_true', help='Deletes files after extracting metadata (Default: False)', required=False)
+parser.add_argument('-S','--SSDeep', action='store_true', help='Perform ssdeep fuzzy hashing of files and store in DB (Default: False)', required=False)
 parser.add_argument('-y','--yararules', default='./midasyararules.yar', help='Specify Yara Rules File (Default: ./midasyararules.yar)', required=False)
 parser.add_argument('-l','--logs', default='./midas.log', help='Midas logs Yara hits, DB Commits, and File Moves (Default: ./midas.log)', required=False)
 parser.add_argument('-m','--move', help='Where to move files to once scanned (Default: Files are Not Moved)', required=False)
@@ -62,6 +64,7 @@ if args['move']:
 	print " All files will be moved to: " + args['move'] + " once scanned"
 else:
 	print " Files will not be moved after scanning."
+print " SSDeep fuzzy hashing is set to: " + str(args['SSDeep'])
 print " Delete after scanning is set to: " + str(args['delete'])
 print "\n This program will not terminate until you stop it. Enjoy! \n Created By: Chris Clark: chris@xenosec.org or @xenosec"
  
@@ -92,6 +95,9 @@ def main():
        				now = datetime.datetime.now()
 				timestamp = now.strftime("%Y:%m:%d %H:%M:%S")
 				metadata[u'File:DateTimeRecieved'] = timestamp
+				# if (-S) flag is set, perform SSDeep hash and insert into JSON
+				if args['SSDeep'] == True:
+					metadata[u'SSDeep'] = ssdeep().hash_file(filename)
 				# remove unwanted keys which were present in exiftool JSON
 				del metadata[u'SourceFile']
 				del metadata[u'File:FilePermissions']

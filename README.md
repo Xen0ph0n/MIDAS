@@ -21,6 +21,8 @@ PyMongo 2.2+
 Python 2.7
 Exiftool 9.0+
 PyExiftool 
+SSDeep
+PySSdeep
 
 <br><br>
 This program uses PyExifData for extraction, and PyMongo to interface with a local Mongodb instance which will
@@ -65,6 +67,7 @@ positional arguments: <br>
 optional arguments:<br>
   -h, --help            show this help message and exit <br>
   -d, --delete          Deletes files after extracting metadata (Default: False) <br>
+  -S  --SSDeep         Perform ssdeep fuzzy hashing of files and store in DB (Default: False)<br>
   -y YARARULES, --yararules YARARULES <br>
                         Specify Yara Rules File (Default: ./midasyararules.yar)<br>
   -l LOGS, --logs LOGS  Midas logs Yara hits, DB Commits, and File Moves (Default: ./midas.log)<br>
@@ -88,6 +91,7 @@ INFO:root:2012:09:10 16:45:49:../testmidas/1.pdf has been deleted.<br>
 Info Inserted into database:
 <br><br>
 [_id] => 32d29ee5d36373a775c8f0776b2395bc<br>
+[SSDeep] => 3072:TlijdBnn/V8zhltU+AqblNIrrN2Ywzmr35DUQKn:ynihrrRNIXN2YwzmzU<br>
 [File:FileType] => PDF<br>
 [File:FileSize] => 107474<br>
 [File:DateTimeRecieved] => 2012:09:10 15:24:08 <br>
@@ -106,6 +110,7 @@ Info Inserted into database:
 [PDF:Linearized] => <br><br>
 
 [_id] => ac97a9244a331ffd1f695d1a99485e5d<br>
+[SSDeep] => 3072:QeORGrBzIqh1olop2dqvsQuiatQq+SnDwURYjcaY3o/GKZRDwcQ:5ORGrBzXQqvsQuztQq+qkjJY3o/3zMcQ<br>
 [File:MIMEType] => application/x-shockwave-flash<br>
 [File:DateTimeRecieved] => 2012:09:10 15:24:08<br>
 [Flash:FileAttributes] => 25<br>
@@ -140,6 +145,7 @@ What you see at the CLI Upon Execute:<br>
  Using Yara Rule file: ./midasyararules.yar<br>
  Sleeping for: 30 seconds between iterations<br>
  All files will be moved to: ../2 once scanned<br>
+ SSDeep fuzzy hashing is set to: True<br>
  Delete after scanning is set to: False<br>
 <br>
  This program will not terminate until you stop it. Enjoy!<br> 
