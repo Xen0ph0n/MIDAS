@@ -36,6 +36,11 @@ All options except for the target DB can be configured via commandline. ( path t
 DB is configured to connect to localhost & default port, db = test, collection = metadata. This can be changed in midas.py
 
 <br><br>
+Version .09a
+<br>
+Latest Changes:<br>
+Added SSDeep Fuzzy Hashing with (-S or -SSDeep) flag, saved in JSON to ['SSDeep'] Key. New dependencies: ssdeep/pyssdeep (if you dont want to use this you can just never use the flag and delete the include ssdeep from the head of midas.py)
+<br>
 Version .07a
 <br>
 Latest Changes:<br>
