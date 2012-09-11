@@ -36,7 +36,10 @@ DB is configured to connect to localhost & default port, db = test, collection =
 <br><br>
 Version .05a
 <br><br>
-Installation: Install all of the prereqs listed above. Place midas.py and midasyararules.yar in a directory which is NOT the path to be scanned. <br> PROFIT!
+Installation: Install all of the prereqs listed above. <br> 
+Place midas.py and midasyararules.yar in a directory which is NOT the path to be scanned. <br>
+Configure your DB Server / DB / Collection info inside of midas.py (note it comes set up to connect to localhost:27017 DB = test Collection = metadata ) <br>
+PROFIT!
 <br><br>
 
 - USAGE midas.py [options] /path/to/files 
