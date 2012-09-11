@@ -26,3 +26,17 @@ rule MetaData_Author_OracleReports_Test
     condition:
         $a
 }
+
+rule Insidefile_String_Test
+{
+    meta: 
+	description = "This is an example"
+	thread_level = 3
+	in_the_wild = true
+
+    strings:
+	$a = "xenophon" nocase
+
+    condition:
+	$a
+}

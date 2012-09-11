@@ -36,6 +36,7 @@ parser.add_argument('Path', help='Path to directory of files to be scanned (Requ
 parser.add_argument('-d','--delete', action='store_true', help='Deletes files after extracting metadata (Default: False)', required=False)
 parser.add_argument('-S','--SSDeep', action='store_true', help='Perform ssdeep fuzzy hashing of files and store in DB (Default: False)', required=False)
 parser.add_argument('-y','--yararules', default='./midasyararules.yar', help='Specify Yara Rules File (Default: ./midasyararules.yar)', required=False)
+parser.add_argument('-f','--fullyara', action='store_true', help='Scan the entriety of each file with Yara (Default: Only Metadata is scanned)', required=False)
 parser.add_argument('-l','--logs', default='./midas.log', help='Midas logs Yara hits, DB Commits, and File Moves (Default: ./midas.log)', required=False)
 parser.add_argument('-m','--move', help='Where to move files to once scanned (Default: Files are Not Moved)', required=False)
 parser.add_argument('-s','--sleep', type=int, default=15, help='Time in Seconds for Midas.py to sleep between scans (Default: 15 sec)', required=False)
@@ -65,6 +66,7 @@ if args['move']:
 else:
 	print " Files will not be moved after scanning."
 print " SSDeep fuzzy hashing is set to: " + str(args['SSDeep'])
+print " Full file Yara scanning is set to: " + str(args['fullyara'])
 print " Delete after scanning is set to: " + str(args['delete'])
 print "\n This program will not terminate until you stop it. Enjoy! \n Created By: Chris Clark: chris@xenosec.org or @xenosec"
  
@@ -105,6 +107,10 @@ def main():
 				del metadata[u'ExifTool:ExifToolVersion']
 				# convert the JSON dictionary to a string and run it through Yara
 				matches = rules.match(data=str(metadata))
+				# Scan full file with yara if -f flag is set, this can be slow
+				if args['fullyara'] == True:
+					fullmatches = rules.match(filename)
+					matches.extend(fullmatches)
 				# Print yara hits, or none..**this will eventually export to logger**
 				if matches:
 					metadata[u'YaraAlerts'] = str(matches)
