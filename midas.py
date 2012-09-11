@@ -99,8 +99,6 @@ def main():
 				del metadata[u'ExifTool:ExifToolVersion']
 				# convert the JSON dictionary to a string and run it through Yara
 				matches = rules.match(data=str(metadata))
-				# confirm successful datbase submission (duplicate Md5s will be ignored by mongo, no msg here)
-				logging.info(timestamp + ": Metadata for " + name + " MD5: " +md5 + " added to database")
 				# Print yara hits, or none..**this will eventually export to logger**
 				if matches:
 					metadata[u'YaraAlerts'] = str(matches)
