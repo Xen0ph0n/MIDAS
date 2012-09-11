@@ -130,12 +130,11 @@ What you see at the CLI Upon Execute:<br>
 ~/MIDAS$ python midas.py -m ../2 -s 30 ../testmidas/<br>
 <br>
 <br>
- Scanning all files recursivly from here: ../testmidas/<br>
+ Scanning all files recursively from here: ../testmidas/<br>
  Logging all information to: ./midas.log<br>
  Using Yara Rule file: ./midasyararules.yar<br>
  Sleeping for: 30 seconds between iterations<br>
- All files will be moved to: ../2once scanned<br>
+ All files will be moved to: ../2 once scanned<br>
  Delete after scanning is set to: False<br>
 <br>
  This program will not terminate until you stop it. Enjoy!<br> 
- Created By: Christopher Clark 9/10/12 Chris@xenosec.org<br><br>

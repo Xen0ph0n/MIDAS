@@ -55,7 +55,7 @@ rules = yara.compile(args['yararules'])
 pathtofiles = args['Path']
 
 # Return Warm and Fuzzy to CLI while magic happens in the background
-print "\n\n Scanning all files recursivly from here: " + pathtofiles 
+print "\n\n Scanning all files recursively from here: " + pathtofiles 
 print " Logging all information to: " + logsfile
 print " Using Yara Rule file: " + str(args['yararules'])  + "\n Sleeping for: " + str(sleeptime) + " seconds between iterations"
 if args['move']:
