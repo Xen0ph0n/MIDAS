@@ -14,15 +14,16 @@ Alternatively, this can be used to look for heuristic anomalies in existing coll
 and benign. <br><br>
 
 MIDAS Requires: <br>
-Yara 1.6 
-Yara Python 1.6
-MongoDB 2.0+
-PyMongo 2.2+
-Python 2.7
-Exiftool 9.0+
-PyExiftool 
-SSDeep
-PySSdeep
+Yara 1.6 <br>
+Yara Python 1.6 <br>
+MongoDB 2.0+ <br>
+PyMongo 2.2+ <br>
+Python 2.7 <br>
+Exiftool 9.0+ <br>
+PyExiftool  <br><br>
+*Optional if you want SSDeep fuzzy Hashing* <br>
+SSDeep <br>
+PySSdeep <br>
 
 <br><br>
 This program uses PyExifData for extraction of metadata, and PyMongo to interface with a local Mongodb instance which will
@@ -66,7 +67,7 @@ PROFIT!
 Please contact me at chris@xenosec.org with any questions. 
 
 USAGE Example: <br>
-usage: midas.py [-h] [-d] [-y YARARULES] [-l LOGS] [-m MOVE] [-s SLEEP] Path <br><br>
+usage: midas.py [-h] [-S] [-d] [-y YARARULES] [-l LOGS] [-m MOVE] [-s SLEEP] Path <br><br>
 
 Metadata Inspection Database Alerting System <br><br>
 
