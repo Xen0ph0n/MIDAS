@@ -77,9 +77,9 @@ optional arguments:<br>
   -h, --help            show this help message and exit <br>
   -d, --delete          Deletes files after extracting metadata (Default: False) <br>
   -S  --SSDeep         Perform ssdeep fuzzy hashing of files and store in DB (Default: False)<br>
-  -y YARARULES, --yararules YARARULES  Specify Yara Rules File (Default: ./midasyararules.yar)<br>
+  -y YARARULES, --yararules YARARULES  Specify Yara Rules File (Default: midasyararules.yar)<br>
   -f, --fullyara        Scan the entriety of each file with Yara (Default: Only Metadata is scanned)<br>
-  -l LOGS, --logs LOGS  Midas logs Yara hits, DB Commits, and File Moves (Default: ./midas.log)<br>
+  -l LOGS, --logs LOGS  Midas logs Yara hits, DB Commits, and File Moves (Default: midas.log)<br>
   -m MOVE, --move MOVE  Where to move files to once scanned (Default: Files are Not Moved) <br>
   -s SLEEP, --sleep SLEEP Time in Seconds for Midas.py to sleep between scans (Default: 15 sec)<br>
 
