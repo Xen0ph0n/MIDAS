@@ -35,8 +35,6 @@ Version .11a
 <br>
 Latest Changes:<br>
 Added midasdb.cfg file for database config, that way I can keep it in one place to make a tool to search that DB later, and it keeps the user out of the source of midas.py<br>
-Version .09a
-<br>
 Version .10a
 <br>
 Latest Changes:<br>
