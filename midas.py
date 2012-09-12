@@ -1,13 +1,14 @@
-# midas.py v.09 
-# By Chris Clark 9/11/2012
+# midas.py v.11
+# By Chris Clark 9/13/2012
 # This is a early version of a program to automatically export to DB and scan
 # the metadata from all incoming files. Also compute and tag each with MD5 hash
 # for tracking and association.
 #
-# This requires: Python 2.7, Mongo DB, Pymongo, Yara 1.6, Yara Python 1.6, Exiftool, PyExiftool, ssdeep, and pyssdeep. 
-# Install Mongo DB and use the default test DB, create a collection called "metadata" and you are good!
-# Or change the settings below to reflect your database. 
+# This requires: Python 2.7, Mongo DB, Pymongo, Yara 1.6, Yara Python 1.6, Exiftool, PyExiftool, (ssdeep, and pyssdeep. 
+# Install Mongo DB and use the defaults and you are good!
+# Or change the settings in midasdb.cfg to reflect your custom database or server. 
 
+import ConfigParser
 import exiftool
 import os
 import shutil
@@ -20,14 +21,18 @@ import yara
 import argparse
 import logging
 
+
+# Import DB Config from midasdb.cfg
+config=ConfigParser.SafeConfigParser()
+config.read("midasdb.cfg")
+dbserver=(config.get('midasdb','server'))
+dbport=int(config.get('midasdb','port'))
+dbdb=(config.get('midasdb','db'))
+dbcoll=(config.get('midasdb','collection'))
+
 # Database Connection Information
 from pymongo import Connection
-# default localhost and default port for local database
-connection = Connection('localhost', 27017)
-# default is the test DB
-db = connection.test
-# default collection is metadata
-metadatacollection = db.metadata
+metadatacollection = Connection(dbserver, dbport)[dbdb][dbcoll]
 
 # Argument Parser and Usage Help
 parser = argparse.ArgumentParser(description='Metadata Inspection Database Alerting System')
