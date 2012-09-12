@@ -19,7 +19,6 @@ import time
 import yara
 import argparse
 import logging
-from ssdeep import ssdeep
 
 # Database Connection Information
 from pymongo import Connection
@@ -50,9 +49,12 @@ logging.info('Starting Midas with the following args: ' + str(args))
 # Time to sleep before iterating over target dir again
 sleeptime = args['sleep']
 
+# Import PySSDeep if needed
+if args['SSDeep'] == True:
+	from ssdeep import ssdeep
+
 # Location of Yara Rules File
 rules = yara.compile(args['yararules'])
-
 
 # Set Path to files from Argument
 pathtofiles = args['Path']
