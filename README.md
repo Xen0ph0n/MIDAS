@@ -31,6 +31,12 @@ are written out to logs, and along with MD5hashes and a SSDeep fuzzy hash are pl
 <br><br>
 
 <br><br>
+Version .11a
+<br>
+Latest Changes:<br>
+Added midasdb.cfg file for database config, that way I can keep it in one place to make a tool to search that DB later, and it keeps the user out of the source of midas.py<br>
+Version .09a
+<br>
 Version .10a
 <br>
 Latest Changes:<br>
@@ -46,8 +52,8 @@ Latest Changes:<br>
 Added ['YaraAlerts'] Key to Metadata JSON which will save the yara rule hits to the database entry for each file.
 <br><br>
 Installation: Install all of the prereqs listed above. <br> 
-Place midas.py and midasyararules.yar in a directory which is NOT the path to be scanned. <br>
-Configure your DB Server / DB / Collection info inside of midas.py (note it comes set up to connect to localhost:27017 DB = test Collection = metadata ) <br>
+Place midas.py, midasdb.cfg, and midasyararules.yar in a directory which is NOT the path to be scanned. <br>
+Configure your DB Server / DB / Collection info inside of midas.cfg (note it comes set up to connect to localhost:27017 DB = test Collection = metadata ) <br>
 PROFIT!
 <br><br>
 
