@@ -11,7 +11,7 @@ to emails through the use of YARA, but could also be automated via netwitness, o
 to iterate through file servers looking for suspicious files). <br>
 
 Alternatively, this can be used to look for heuristic anomalies in existing collections of files both malicious
-and benign. <br><br>
+and benign.
 
 MIDAS Requires: 
 ===
@@ -26,11 +26,9 @@ PyExiftool  <br><br>
 SSDeep <br>
 PySSdeep <br>
 
-<br><br>
 This program uses PyExifData for extraction of metadata, and PyMongo to interface with a local Mongodb instance which will
 store the extracted data for later queries and tracking. Files and extracted metadata are also scanned by Yara and alerts 
 are written out to logs, and along with MD5hashes and a SSDeep fuzzy hash are placed in the JSON which is sent to the Database.
-<br><br>
 Latest Changes
 ====
 Version .11a
@@ -46,7 +44,6 @@ Added SSDeep Fuzzy Hashing with (-S or -SSDeep) flag, saved in JSON to ['SSDeep'
 Version .07a
 <br>
 Added ['YaraAlerts'] Key to Metadata JSON which will save the yara rule hits to the database entry for each file.
-<br><br>
 Installation:
 ====
 Install all of the prereqs listed above. <br> 
@@ -54,7 +51,7 @@ Place midas.py, midasdb.cfg, and midasyararules.yar in a directory which is NOT 
 Configure your DB Server / DB / Collection info inside of midas-settings.cfg (note it comes set up to connect to localhost:27017 DB = test Collection = metadata ) <br>
 You can also set a YaraRules file and designate a log file in midas-settings.cfg (default is midasyararules.yar and midas.log)
 PROFIT!
-<br><br>
+<br>
 
 - Currently the program works to extract exif data from all files in a given directory. 
 - It computes an MD5hash and time stamp for each file and add that to the JSON 
@@ -64,6 +61,8 @@ PROFIT!
 - It will then pause 15 seconds (configurable with -s) and repeat this process with no further interaction, logging all DB Submissions, and file moves/deletes 
 
 Please contact me at chris@xenosec.org with any questions. 
+
+_____________________
 
 USAGE Example: 
 ====
@@ -80,9 +79,20 @@ optional arguments:<br>
   -f, --fullyara        Scan the entriety of each file with Yara (Default: Only Metadata is scanned)<br>
   -m MOVE, --move MOVE  Where to move files to once scanned (Default: Files are Not Moved) <br>
   -s SLEEP, --sleep SLEEP Time in Seconds for Midas.py to sleep between scans (Default: 15 sec)<br>
-
+What you see at the CLI Upon Execute:
+===
+~/MIDAS$ python midas.py -s -f -m ../2 -s 30 ../testmidas/<br>
 <br>
+ Scanning all files recursively from here: ../testmidas/<br>
+ Logging all information to: midas.log<br>
+ Using Yara Rule file: midasyararules.yar<br>
+ Sleeping for: 30 seconds between iterations<br>
+ All files will be moved to: ../2 once scanned<br>
+ SSDeep fuzzy hashing is set to: True<br>
+ Full file Yara scanning is set to: True<br>
+ Delete after scanning is set to: False<br>
 <br>
+ This program will not terminate until you stop it. Enjoy!<br>
 LOGS Example:
 ===
 INFO:root:Starting Midas with the following args: {'yararules': './midasyararules.yar', 'logs': './midas.log', 'move': None, 'sleep': 15, 'Path': '../testmidas/', 'delete': True} <br>
@@ -94,8 +104,6 @@ INFO:root:2012:09:10 16:45:49:../testmidas/2.pdf has been deleted. <br>
 INFO:root:2012:09:10 16:45:49: Metadata for 1.pdf MD5: 32d29ee5d36373a775c8f0776b2395bc added to database <br>
 WARNING:root:2012:09:10 16:45:49: Yara Matches for 1.pdf: [MetaData_PDF_Test, MetaData_Author_OracleReports_Test] MD5: 32d29ee5d36373a775c8f0776b2395bc <br>
 INFO:root:2012:09:10 16:45:49:../testmidas/1.pdf has been deleted.<br>
-<br>
-<br>
 Info Inserted into database:
 ===
 [_id] => 32d29ee5d36373a775c8f0776b2395bc<br>
@@ -142,20 +150,4 @@ Info Inserted into database:
 [Composite:ImageSize] => 500x375<br>
 [Flash:FrameRate] => 24<br>
 [XMP:Language] => EN<br>
-<br>
 
-What you see at the CLI Upon Execute:
-===
-~/MIDAS$ python midas.py -s -f -m ../2 -s 30 ../testmidas/<br>
-<br>
-<br>
- Scanning all files recursively from here: ../testmidas/<br>
- Logging all information to: midas.log<br>
- Using Yara Rule file: midasyararules.yar<br>
- Sleeping for: 30 seconds between iterations<br>
- All files will be moved to: ../2 once scanned<br>
- SSDeep fuzzy hashing is set to: True<br>
- Full file Yara scanning is set to: True<br>
- Delete after scanning is set to: False<br>
-<br>
- This program will not terminate until you stop it. Enjoy!<br> 
