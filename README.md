@@ -62,6 +62,22 @@ PROFIT!
 
 Please contact me at chris@xenosec.org with any questions. 
 
+midas-settings.cfg
+===
+<br>
+MIDAS Will create the collection if it dosen't exist<br>
+Enter DB info below:<br>
+[midasdb]<br>
+server: localhost<br>
+port: 27017<br>
+db: test<br>
+collection: metadata<br>
+General Settings<br>
+[settings]<br>
+logs: midas.log<br>
+yararules: midasyararules.yar<br>
+
+
 _____________________
 
 USAGE Example: 
