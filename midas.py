@@ -1,4 +1,4 @@
-# midas.py v.11
+# midas.py v.12
 # By Chris Clark 9/13/2012
 # This is a early version of a program to automatically export to DB and scan
 # the metadata from all incoming files. Also compute and tag each with MD5 hash
@@ -6,29 +6,30 @@
 #
 # This requires: Python 2.7, Mongo DB, Pymongo, Yara 1.6, Yara Python 1.6, Exiftool, PyExiftool, (ssdeep, and pyssdeep. 
 # Install Mongo DB and use the defaults and you are good!
-# Or change the settings in midasdb.cfg to reflect your custom database or server. 
+# Or change the settings in midas-settings.cfg to reflect your custom database or server.
+# Settings for logfile, and yararules file are also located in the midas-settings.cfg file. 
 
 import ConfigParser
 import exiftool
 import os
 import shutil
-import sys
-import pymongo 
+import sys 
 import hashlib
 import datetime
 import time
 import yara
 import argparse
 import logging
+import pymongo
 
+# Import DB Config from midas-settings.cfg
+config = ConfigParser.SafeConfigParser()
+config.read("midas-settings.cfg")
 
-# Import DB Config from midasdb.cfg
-config=ConfigParser.SafeConfigParser()
-config.read("midasdb.cfg")
-dbserver=(config.get('midasdb','server'))
-dbport=int(config.get('midasdb','port'))
-dbdb=(config.get('midasdb','db'))
-dbcoll=(config.get('midasdb','collection'))
+dbserver = config.get('midasdb','server')
+dbport = int(config.get('midasdb','port'))
+dbdb = config.get('midasdb','db')
+dbcoll = config.get('midasdb','collection')
 
 # Database Connection Information
 from pymongo import Connection
@@ -39,15 +40,13 @@ parser = argparse.ArgumentParser(description='Metadata Inspection Database Alert
 parser.add_argument('Path', help='Path to directory of files to be scanned (Required)')
 parser.add_argument('-d','--delete', action='store_true', help='Deletes files after extracting metadata (Default: False)', required=False)
 parser.add_argument('-S','--SSDeep', action='store_true', help='Perform ssdeep fuzzy hashing of files and store in DB (Default: False)', required=False)
-parser.add_argument('-y','--yararules', default='midasyararules.yar', help='Specify Yara Rules File (Default: midasyararules.yar)', required=False)
 parser.add_argument('-f','--fullyara', action='store_true', help='Scan the entriety of each file with Yara (Default: Only Metadata is scanned)', required=False)
-parser.add_argument('-l','--logs', default='midas.log', help='Midas logs Yara hits, DB Commits, and File Moves (Default: midas.log)', required=False)
 parser.add_argument('-m','--move', help='Where to move files to once scanned (Default: Files are Not Moved)', required=False)
 parser.add_argument('-s','--sleep', type=int, default=15, help='Time in Seconds for Midas.py to sleep between scans (Default: 15 sec)', required=False)
 args = vars(parser.parse_args())
 
 # Logging Configuration 
-logsfile = args['logs']
+logsfile = config.get('settings','logs')
 logging.basicConfig(filename=logsfile, level=logging.INFO)
 logging.info('Starting Midas with the following args: ' + str(args))
 
@@ -59,7 +58,8 @@ if args['SSDeep'] == True:
 	from ssdeep import ssdeep
 
 # Location of Yara Rules File
-rules = yara.compile(args['yararules'])
+yararules = config.get('settings','yararules')
+rules = yara.compile(yararules)
 
 # Set Path to files from Argument
 pathtofiles = args['Path']
@@ -67,7 +67,7 @@ pathtofiles = args['Path']
 # Return Warm and Fuzzy to CLI while magic happens in the background
 print "\n\n Scanning all files recursively from here: " + pathtofiles 
 print " Logging all information to: " + logsfile
-print " Using Yara Rule file: " + str(args['yararules'])  + "\n Sleeping for: " + str(sleeptime) + " seconds between iterations"
+print " Using Yara Rule file: " + yararules  + "\n Sleeping for: " + str(sleeptime) + " seconds between iterations"
 if args['move']:
 	print " All files will be moved to: " + args['move'] + " once scanned"
 else:
