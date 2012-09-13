@@ -13,7 +13,8 @@ to iterate through file servers looking for suspicious files). <br>
 Alternatively, this can be used to look for heuristic anomalies in existing collections of files both malicious
 and benign. <br><br>
 
-MIDAS Requires: <br>
+MIDAS Requires: 
+===
 Yara 1.6 <br>
 Yara Python 1.6 <br>
 MongoDB 2.0+ <br>
@@ -30,27 +31,25 @@ This program uses PyExifData for extraction of metadata, and PyMongo to interfac
 store the extracted data for later queries and tracking. Files and extracted metadata are also scanned by Yara and alerts 
 are written out to logs, and along with MD5hashes and a SSDeep fuzzy hash are placed in the JSON which is sent to the Database.
 <br><br>
-
-<br><br>
+Latest Changes
+====
 Version .11a
 <br>
-Latest Changes:<br>
 Added midas-settings.cfg file for database config and yararules/log file config, that way I can keep it in one place to make a tool to search that DB later, and it keeps the user out of the source of midas.py<br>
 Version .10a
 <br>
-Latest Changes:<br>
 Added full file yara scanning, this can be resource intensive if you have a lot of rules. (-f or -fullyara). It will alert to logs at warning level and push all alerts for a file into the DB in the JSON<br>
 Version .09a
 <br>
-Latest Changes:<br>
 Added SSDeep Fuzzy Hashing with (-S or -SSDeep) flag, saved in JSON to ['SSDeep'] Key. New dependencies: ssdeep/pyssdeep (if you dont want to use this you can just never use the flag and delete the include ssdeep from the head of midas.py)
 <br>
 Version .07a
 <br>
-Latest Changes:<br>
 Added ['YaraAlerts'] Key to Metadata JSON which will save the yara rule hits to the database entry for each file.
 <br><br>
-Installation: Install all of the prereqs listed above. <br> 
+Installation:
+====
+Install all of the prereqs listed above. <br> 
 Place midas.py, midasdb.cfg, and midasyararules.yar in a directory which is NOT the path to be scanned. <br>
 Configure your DB Server / DB / Collection info inside of midas-settings.cfg (note it comes set up to connect to localhost:27017 DB = test Collection = metadata ) <br>
 You can also set a YaraRules file and designate a log file in midas-settings.cfg (default is midasyararules.yar and midas.log)
@@ -66,7 +65,8 @@ PROFIT!
 
 Please contact me at chris@xenosec.org with any questions. 
 
-USAGE Example: <br>
+USAGE Example: 
+====
 usage: midas.py [-h] [-S] [-d] [-m MOVE] [-s SLEEP] Path <br><br>
 
 Metadata Inspection Database Alerting System <br><br>
@@ -83,7 +83,8 @@ optional arguments:<br>
 
 <br>
 <br>
-LOGS Example:<br>
+LOGS Example:
+===
 INFO:root:Starting Midas with the following args: {'yararules': './midasyararules.yar', 'logs': './midas.log', 'move': None, 'sleep': 15, 'Path': '../testmidas/', 'delete': True} <br>
 INFO:root:2012:09:10 16:45:49: Metadata for july.swf MD5: ac97a9244a331ffd1f695d1a99485e5d added to database <br>
 INFO:root:2012:09:10 16:45:49:../testmidas/july.swf has been deleted. <br>
@@ -96,7 +97,7 @@ INFO:root:2012:09:10 16:45:49:../testmidas/1.pdf has been deleted.<br>
 <br>
 <br>
 Info Inserted into database:
-<br><br>
+===
 [_id] => 32d29ee5d36373a775c8f0776b2395bc<br>
 [SSDeep] => 3072:TlijdBnn/V8zhltU+AqblNIrrN2Ywzmr35DUQKn:ynihrrRNIXN2YwzmzU<br>
 [File:FileType] => PDF<br>
@@ -143,8 +144,9 @@ Info Inserted into database:
 [XMP:Language] => EN<br>
 <br>
 
-What you see at the CLI Upon Execute:<br>
-~/MIDAS$ python midas.py -m ../2 -s 30 ../testmidas/<br>
+What you see at the CLI Upon Execute:
+===
+~/MIDAS$ python midas.py -s -f -m ../2 -s 30 ../testmidas/<br>
 <br>
 <br>
  Scanning all files recursively from here: ../testmidas/<br>
