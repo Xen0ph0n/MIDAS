@@ -35,7 +35,7 @@ are written out to logs, and along with MD5hashes and a SSDeep fuzzy hash are pl
 Version .11a
 <br>
 Latest Changes:<br>
-Added midasdb.cfg file for database config, that way I can keep it in one place to make a tool to search that DB later, and it keeps the user out of the source of midas.py<br>
+Added midas-settings.cfg file for database config and yararules/log file config, that way I can keep it in one place to make a tool to search that DB later, and it keeps the user out of the source of midas.py<br>
 Version .10a
 <br>
 Latest Changes:<br>
@@ -52,22 +52,22 @@ Added ['YaraAlerts'] Key to Metadata JSON which will save the yara rule hits to 
 <br><br>
 Installation: Install all of the prereqs listed above. <br> 
 Place midas.py, midasdb.cfg, and midasyararules.yar in a directory which is NOT the path to be scanned. <br>
-Configure your DB Server / DB / Collection info inside of midas.cfg (note it comes set up to connect to localhost:27017 DB = test Collection = metadata ) <br>
+Configure your DB Server / DB / Collection info inside of midas-settings.cfg (note it comes set up to connect to localhost:27017 DB = test Collection = metadata ) <br>
+You can also set a YaraRules file and designate a log file in midas-settings.cfg (default is midasyararules.yar and midas.log)
 PROFIT!
 <br><br>
 
-- USAGE midas.py [options] /path/to/files 
 - Currently the program works to extract exif data from all files in a given directory. 
 - It computes an MD5hash and time stamp for each file and add that to the JSON 
 - It then adds the metadata in json format to a mongo DB collection of your chosing 
-- Then it will use the information in (-y TARG default:"midasyararules.yar") to perform detection based on the metadata. Detections will be logged at a WARNING level for easy ident and also added to the JSON data with key 'YaraAlerts' 
+- Then it will use Yara to perform detections in the metadata (or whole files with -f) Detections will be logged at a WARNING level for easy ident and also added to the JSON data with key 'YaraAlerts' 
 - It then has the ability to either (-d) delete or (-m) move files once scanned to a configurable destination.  
 - It will then pause 15 seconds (configurable with -s) and repeat this process with no further interaction, logging all DB Submissions, and file moves/deletes 
 
 Please contact me at chris@xenosec.org with any questions. 
 
 USAGE Example: <br>
-usage: midas.py [-h] [-S] [-d] [-y YARARULES] [-l LOGS] [-m MOVE] [-s SLEEP] Path <br><br>
+usage: midas.py [-h] [-S] [-d] [-m MOVE] [-s SLEEP] Path <br><br>
 
 Metadata Inspection Database Alerting System <br><br>
 
@@ -77,9 +77,7 @@ optional arguments:<br>
   -h, --help            show this help message and exit <br>
   -d, --delete          Deletes files after extracting metadata (Default: False) <br>
   -S  --SSDeep         Perform ssdeep fuzzy hashing of files and store in DB (Default: False)<br>
-  -y YARARULES, --yararules YARARULES  Specify Yara Rules File (Default: midasyararules.yar)<br>
   -f, --fullyara        Scan the entriety of each file with Yara (Default: Only Metadata is scanned)<br>
-  -l LOGS, --logs LOGS  Midas logs Yara hits, DB Commits, and File Moves (Default: midas.log)<br>
   -m MOVE, --move MOVE  Where to move files to once scanned (Default: Files are Not Moved) <br>
   -s SLEEP, --sleep SLEEP Time in Seconds for Midas.py to sleep between scans (Default: 15 sec)<br>
 
@@ -150,8 +148,8 @@ What you see at the CLI Upon Execute:<br>
 <br>
 <br>
  Scanning all files recursively from here: ../testmidas/<br>
- Logging all information to: ./midas.log<br>
- Using Yara Rule file: ./midasyararules.yar<br>
+ Logging all information to: midas.log<br>
+ Using Yara Rule file: midasyararules.yar<br>
  Sleeping for: 30 seconds between iterations<br>
  All files will be moved to: ../2 once scanned<br>
  SSDeep fuzzy hashing is set to: True<br>
