@@ -168,7 +168,7 @@ Info Inserted into database:
 [XMP:Language] => EN<br>
 _____________________
 
-Copyright Info:
+Copyright & License Info:
 ====
 MIDAS is copyrighted by Chris Clark 2012. 
 Contact me at Chris@xenosys.org
