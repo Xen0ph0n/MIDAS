@@ -166,4 +166,15 @@ Info Inserted into database:
 [Composite:ImageSize] => 500x375<br>
 [Flash:FrameRate] => 24<br>
 [XMP:Language] => EN<br>
+_____________________
 
+Copyright Info:
+====
+MIDAS is copyrighted by Chris Clark 2012. 
+Contact me at Chris@xenosys.org
+
+MIDAS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+MIDAS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with MIDAS. If not, see http://www.gnu.org/licenses/.
