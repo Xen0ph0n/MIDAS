@@ -79,12 +79,14 @@ print "\n This program will not terminate until you stop it. Enjoy! \n Created B
  
 # Md5 Function
 def md5sum(filename):
-	md5 = hashlib.md5()
-        with open(filename, 'rb') as f:
-        	for chunk in iter(lambda: f.read(8192), b''):
- 			md5.update(chunk)
-	return md5.hexdigest()
-
+    fh = open(filename, 'rb')
+    m = hashlib.md5()
+    while True:
+        data = fh.read(8192)
+        if not data:
+            break
+        m.update(data)
+    return m.hexdigest()
 
 # Main function which will loop as every X seconds
 def main():
