@@ -1,0 +1,14 @@
+#Bad Metadata, Matches against all Exiftool Metadata and Alerts 
+#Comment your entry so we know what it relates too.
+#
+#Author
+Tran Duy Linh
+#
+#Modified Date 
+2012:11:23 04:35:00
+2013:06:07 00:57:32-04:00
+#
+#Filename
+SMAgent.exe
+#Company
+DLC Corporation
