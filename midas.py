@@ -181,12 +181,12 @@ def main():
 
 	printFuzzy()
 	
-	if isinstance(sleeptime, (int, long)):
+	if sleeptime[0].isdigit():
 		while True:
 			filelist = buildFilelist(pathtofiles)
 			pool = Pool(processes = int(config.get('settings','threads')))
 			pool.map(inspectFile, filelist)
-			time.sleep(sleeptime)
+			time.sleep(int(sleeptime))
 	else:
 		filelist = buildFilelist(pathtofiles)
 		pool = Pool(processes = int(config.get('settings','threads')))

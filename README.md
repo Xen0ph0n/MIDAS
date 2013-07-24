@@ -65,7 +65,7 @@ PROFIT!
 - Optional: Files scanned with VirusTotal (Hits result in an alert)
 - It then adds the metadata in json format to a mongo DB collection of your chosing (selectivly only malicious files)
 - It then has the ability to either (-d) delete or (-m) move files once scanned to a configurable destination.  
-- It will then pause 15 seconds (configurable) and repeat this process with no further interaction, logging all DB Submissions (or only malicious, and file moves/deletes 
+- It will then pause 15 seconds (configurable or off (default)) and repeat this process with no further interaction, logging all DB Submissions (or only malicious, and file moves/deletes 
 
 Please contact me at chris@xenosec.org with any questions. 
 
