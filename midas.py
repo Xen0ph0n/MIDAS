@@ -123,7 +123,7 @@ def yaraScan(filename, md5):
 	if os.stat(filename).st_size > 0: #check to ensure no zero byte files are scanned 
 		matches = rules.match(filename)
 		if matches:
-			logging.warning(timestamp() + ": Yara Alert: " + str(matches) + " MD5: " + md5)
+			logging.critical(timestamp() + ": Yara Alert: " + str(matches) + " MD5: " + md5)
 			return matches
 		else:
 			return 'None'
@@ -172,7 +172,9 @@ def vtapi(md5):
 		VTjson = json.loads(response.read())
 		#print VTjson
 		if VTjson['response_code'] == 1 :
-			return str(VTjson['positives']) + '/' + str(VTjson['total']) + ' Detections on ' + str(VTjson['scan_date'])
+			vthitstat = str(VTjson['positives']) + '/' + str(VTjson['total']) + ' Detections on ' + str(VTjson['scan_date'])
+			logging.critical(timestamp() + ": VirusTotal Alert: " + vthitstat + " MD5: " + md5)	
+			return vthitstat		
 		else :
 			return "File Does Not Exist in VirusTotal"
 	except Exception:
