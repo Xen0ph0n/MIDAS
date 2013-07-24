@@ -106,7 +106,7 @@ def metadataCheck(filename, md5):
 	for key, value in metadata.iteritems():
 		for sig in badmetalist:
 			if sig == value:
-				logging.critical(timestamp() + ":Bad_Metadata_Alert::" + key + ":" + value + ":" + filename+ ":"+ md5)
+				logging.critical(timestamp() + ": Bad Metadata Alert: " + key + ":" + value + " MD5:"+ md5)
 				hits.append("Bad_Meta:" + key +  value)
 	if hits:
 		metadata[u'Metadata_Alerts'] = str(hits).replace("u'", "").replace("'",'')
@@ -123,7 +123,7 @@ def yaraScan(filename, md5):
 	if os.stat(filename).st_size > 0: #check to ensure no zero byte files are scanned 
 		matches = rules.match(filename)
 		if matches:
-			logging.warning(timestamp() + ": Yara Matches for " + os.path.basename(filename) + ": " + str(matches) + " MD5: " + md5)
+			logging.warning(timestamp() + ": Yara Alert: " + str(matches) + " MD5: " + md5)
 			return matches
 		else:
 			return 'None'

@@ -158,16 +158,10 @@ python midas.py ../yaragenerator/greencat/
 LOGS Example:
 ===
 ```
-CRITICAL:root:2013:07:23 20:18:43:Bad_Metadata_Alert::EXE:OriginalFilename:SMAgent.exe:../yaragenerator/greencat/3.exe:57e79f7df13c0cb01910d0c688fcd296
-WARNING:root:2013:07:23 20:18:43: Yara Matches for 3.exe: [Win_Trojan_APT_APT1_Greencat] MD5: 57e79f7df13c0cb01910d0c688fcd296
-WARNING:root:2013:07:23 20:18:43: Yara Matches for c196cac319e5c55e8169b6ed6930a10359b3db322abe8f00ed8cb83cf0888d3b: [Win_Trojan_APT_APT1_Greencat] MD5: 6570163cd34454b3d1476c134d44b9d9
-WARNING:root:2013:07:23 20:18:43: Yara Matches for 8bf5a9e8d5bc1f44133c3f118fe8ca1701d9665a72b3893f509367905feb0a00: [Win_Trojan_APT_APT1_Greencat] MD5: 871cc547feb9dbec0285321068e392b8
-CRITICAL:root:2013:07:23 20:20:21:Bad_Metadata_Alert::EXE:OriginalFilename:SMAgent.exe:../yaragenerator/greencat/3.exe:57e79f7df13c0cb01910d0c688fcd296
-WARNING:root:2013:07:23 20:20:21: Yara Matches for 3.exe: [Win_Trojan_APT_APT1_Greencat] MD5: 57e79f7df13c0cb01910d0c688fcd296
-CRITICAL:root:2013:07:23 20:20:21:Bad_Metadata_Alert::EXE:OriginalFilename:SMAgent.exe:../yaragenerator/greencat/c196cac319e5c55e8169b6ed6930a10359b3db322abe8f00ed8cb83cf0888d3b:6570163cd34454b3d1476c134d44b9d9
-CRITICAL:root:2013:07:23 20:20:21:Bad_Metadata_Alert::EXE:OriginalFilename:SMAgent.exe:../yaragenerator/greencat/8bf5a9e8d5bc1f44133c3f118fe8ca1701d9665a72b3893f509367905feb0a00:871cc547feb9dbec0285321068e392b8
-WARNING:root:2013:07:23 20:20:21: Yara Matches for c196cac319e5c55e8169b6ed6930a10359b3db322abe8f00ed8cb83cf0888d3b: [Win_Trojan_APT_APT1_Greencat] MD5: 6570163cd34454b3d1476c134d44b9d9
-WARNING:root:2013:07:23 20:20:21: Yara Matches for 8bf5a9e8d5bc1f44133c3f118fe8ca1701d9665a72b3893f509367905feb0a00: [Win_Trojan_APT_APT1_Greencat] MD5: 871cc547feb9dbec0285321068e392b8
+CRITICAL:root:2013:07:23 20:18:43: Bad Metadata Alert: EXE:OriginalFilename:SMAgent.exe MD5:57e79f7df13c0cb01910d0c688fcd296
+WARNING:root:2013:07:23 20:18:43: Yara Alert: [Win_Trojan_APT_APT1_Greencat] MD5: 57e79f7df13c0cb01910d0c688fcd296
+WARNING:root:2013:07:23 20:18:43: Yara Alert: [Win_Trojan_APT_APT1_Greencat] MD5: 6570163cd34454b3d1476c134d44b9d9
+WARNING:root:2013:07:23 20:18:43: Yara Alert: [Win_Trojan_APT_APT1_Greencat] MD5: 871cc547feb9dbec0285321068e392b8
 ```
 
 Info Inserted into database:
