@@ -140,11 +140,11 @@ def inspectFile(filename):
 	if config.get('settings','virustotal') == 'True': metadata[u'VirusTotal'] = vtapi(metadata[u'md5'])
 	if config.get('settings','ssdeep') == 'True': metadata[u'SSDeep'] = ssdeep(filename)
 	if config.get('settings','maliciousonly') == 'False':
-		metadatacollection.insert(metadata)
+		metadatacollection.update({'_id': md5}, metadata, upsert=True)
 		logging.info(timestamp() + ": Metadata for " + os.path.basename(filename) + " MD5: " +md5 + " added to database")
 	elif config.get('settings','maliciousonly') == 'True':
 		if metadata[u'YaraAlerts'] != 'None' or metadata[u'Metadata_Alerts'] != 'None' or metadata[u'VirusTotal'][0].isdigit() == True:
-			metadatacollection.insert(metadata)
+			metadatacollection.update({'_id': md5}, metadata, upsert=True)
 			logging.info(timestamp() + ": Metadata for " + os.path.basename(filename) + " MD5: " +md5 + " added to database")
 	if args['move']: moveFiles(args['move'], filename, os.path.basename(filename))
 	if args['delete'] == True: deleteFiles(filename) 
