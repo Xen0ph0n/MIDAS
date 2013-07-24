@@ -155,13 +155,12 @@ python midas.py ../yaragenerator/greencat/
  Created By: Chris Clark chris@xenosec.org https://github.com/xen0ph0n/MIDAS
  ```
 
-LOGS Example:
+Logs / Alerts Example:
 ===
 ```
-CRITICAL:root:2013:07:23 20:18:43: Bad Metadata Alert: EXE:OriginalFilename:SMAgent.exe MD5:57e79f7df13c0cb01910d0c688fcd296
-WARNING:root:2013:07:23 20:18:43: Yara Alert: [Win_Trojan_APT_APT1_Greencat] MD5: 57e79f7df13c0cb01910d0c688fcd296
-WARNING:root:2013:07:23 20:18:43: Yara Alert: [Win_Trojan_APT_APT1_Greencat] MD5: 6570163cd34454b3d1476c134d44b9d9
-WARNING:root:2013:07:23 20:18:43: Yara Alert: [Win_Trojan_APT_APT1_Greencat] MD5: 871cc547feb9dbec0285321068e392b8
+CRITICAL:root:2013:07:23 21:35:13: Bad Metadata Alert: EXE:OriginalFilename:SMAgent.exe MD5:871cc547feb9dbec0285321068e392b8
+CRITICAL:root:2013:07:23 21:35:13: Yara Alert: [Win_Trojan_APT_APT1_Greencat] MD5: 871cc547feb9dbec0285321068e392b8
+CRITICAL:root:2013:07:23 21:35:14: VirusTotal Alert: 38/46 Detections on 2013-07-06 03:27:48 MD5: 871cc547feb9dbec0285321068e392b8
 ```
 
 Info Inserted into database:
