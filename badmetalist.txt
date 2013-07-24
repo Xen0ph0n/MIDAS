@@ -1,5 +1,5 @@
 #Bad Metadata, Matches against all Exiftool Metadata and Alerts 
-#Comment your entry so we know what it relates too.
+#You can comment your entries with #
 #
 #Author
 Tran Duy Linh
