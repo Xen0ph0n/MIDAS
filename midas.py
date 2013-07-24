@@ -60,7 +60,7 @@ def printFuzzy():
 	print " SSDeep fuzzy hashing is set to: " + str(config.get('settings','ssdeep'))
 	print " Full file Yara scanning is set to: " + str(config.get('settings','fullyara'))
 	print " VirusTotal Hash Check is set to: " + str(config.get('settings', 'virustotal'))
-	if config.get('settings','maliciousonly'):
+	if config.get('settings','maliciousonly') == 'True':
 		print " Only files which trigger an Alert or VT Hit will be submited to the Database"
 	print " Delete after scanning is set to: " + str(args['delete'])
 	if isinstance(sleeptime, (int, long)):
@@ -144,8 +144,9 @@ def inspectFile(filename):
 		logging.info(timestamp() + ": Metadata for " + os.path.basename(filename) + " MD5: " +md5 + " added to database")
 	elif config.get('settings','maliciousonly') == 'True':
 		if metadata[u'YaraAlerts'] != 'None' or metadata[u'Metadata_Alerts'] != 'None' or metadata[u'VirusTotal'][0].isdigit() == True:
-			metadatacollection.update({'_id': md5}, metadata, upsert=True)
-			logging.info(timestamp() + ": Metadata for " + os.path.basename(filename) + " MD5: " +md5 + " added to database")
+			if not metadata[u'VirusTotal'].startswith('0'):
+				metadatacollection.update({'_id': md5}, metadata, upsert=True)
+				logging.info(timestamp() + ": Metadata for " + os.path.basename(filename) + " MD5: " +md5 + " added to database")
 	if args['move']: moveFiles(args['move'], filename, os.path.basename(filename))
 	if args['delete'] == True: deleteFiles(filename) 
 
