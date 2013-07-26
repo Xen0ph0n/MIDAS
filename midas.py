@@ -137,7 +137,8 @@ def inspectFile(filename):
 	metadata[u'_id'] = md5
 	metadata[u'File:DateTimeRecieved'] = timestamp()
 	if config.get('settings','fullyara') == 'True': metadata[u'YaraAlerts'] = str(yaraScan(filename, md5))
-	if config.get('settings','virustotal') == 'True': metadata[u'VirusTotal'] = vtapi(metadata[u'md5'])
+	if config.get('settings','virustotal') == 'True': metadata[u'VirusTotal'] = vtapi(metadata[u'md5']) 
+	if config.get('settings','virustotal') != 'True': metadata[u'VirusTotal'] = 'VirusTotal API Not Enabled'
 	if config.get('settings','ssdeep') == 'True': metadata[u'SSDeep'] = ssdeep(filename)
 	if config.get('settings','maliciousonly') == 'False':
 		metadatacollection.update({'_id': md5}, metadata, upsert=True)
