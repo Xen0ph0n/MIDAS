@@ -187,13 +187,21 @@ def main():
 	if sleeptime[0].isdigit():
 		while True:
 			filelist = buildFilelist(pathtofiles)
-			pool = Pool(processes = int(config.get('settings','threads')))
-			pool.map(inspectFile, filelist)
+			if config.get('settings', 'threads')[0].isdigit():
+				pool = Pool(processes = int(config.get('settings','threads')))
+				pool.map(inspectFile, filelist)
+			else:
+				for f in filelist:
+					inspectFile(f)
 			time.sleep(int(sleeptime))
 	else:
-		filelist = buildFilelist(pathtofiles)
-		pool = Pool(processes = int(config.get('settings','threads')))
-		pool.map(inspectFile, filelist)	
+			filelist = buildFilelist(pathtofiles)
+			if config.get('settings', 'threads')[0].isdigit():
+				pool = Pool(processes = int(config.get('settings','threads')))
+				pool.map(inspectFile, filelist)
+			else:
+				for f in filelist:
+					inspectFile(f)
 
 if __name__ == "__main__":
 	main()  
